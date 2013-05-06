@@ -36,7 +36,7 @@ if (!version) error('No version supplied.');
 
 // Run npm verison (tags & commits)
 success('Updating version...');
-var npm = spawn('npm', ['version', version, '-m', "Release %s."]);
+var npm = spawn('npm', ['version', version, '-m', "Release v%s."]);
 npm.stdout.pipe(process.stdout);
 npm.stderr.pipe(process.stderr);
 
