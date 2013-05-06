@@ -1,0 +1,19 @@
+{
+  "name": "npm-release",
+  "version": "0.0.0",
+  "description": "Tiny tool for releasing npm modules.",
+  "main": "index.js",
+  "preferGlobal": true,
+  "scripts": {
+    "test": "tap ./test"
+  },
+  "bin": {
+    "npm-release": "./bin/npm-release"
+  },
+  "repository": "",
+  "author": "Tom Ashworth <tom@phuu.net>",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "~0.6.0-1"
+  }
+}

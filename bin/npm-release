@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+
+var spawn = require('child_process').spawn,
+    exec = require('child_process').exec,
+    path = require('path'),
+    colors = require('colors'),
+    version = process.argv[2],
+    relasePath = path.resolve(__dirname, './git-release'),
+    pkg = {};
+
+var exit = function (str) {
+  console.log((''+ str).red);
+  process.exit(-1);
+};
+
+var success = function () {
+  console.log([].slice.call(arguments).join(' ').green);
+};
+
+try {
+  pkg = require(path.resolve(process.cwd(), './package.json'));
+} catch(e) {
+  exit('Could not find a package.json');
+}
+
+if (!pkg.name) exit('Error: No package.json found.');
+
+if (!version) exit('Error: No version supplied.');
+
+var npm = spawn('npm', ['version', version]);
+
+npm.stdout.pipe(process.stdout);
+npm.stderr.pipe(process.stderr);
+
+npm.on('close', function (code) {
+  if (code !== 0) return exit('Error: exiting.');
+  success('Version bumped from', pkg.version, 'to', version);
+  success('Releasing...');
+  var release = exec(relasePath + ' ' + version, function (error, stdout, stderr) {
+    if (error) return exit(error);
+    stdout.pipe(process.stdout);
+    stderr.pipe(process.stderr);
+  });
+});
+
