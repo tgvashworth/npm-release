@@ -9,9 +9,11 @@ var spawn = require('child_process').spawn,
     relasePath = path.resolve(__dirname, './git-release');
 
 var exit = function (str) {
-  console.log((''+ str).red);
+  console.log([].slice.call(arguments).join(' ').red);
   process.exit(-1);
 };
+
+var error = exit.bind(null, 'Error:');
 
 var success = function () {
   console.log([].slice.call(arguments).join(' ').green);
@@ -22,16 +24,15 @@ var getCurrentVersion = function () {
   try {
     pkg = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), './package.json')));
   } catch(e) {
-    exit('Could not open a package.json');
+    error('Could not open a package.json.');
   }
   return pkg.version;
 };
 
 var oldVersion = getCurrentVersion();
 
-if (!oldVersion) exit('Error: No version in package.json found.');
-
-if (!version) exit('Error: No version supplied.');
+if (!oldVersion) error('No version in package.json found.');
+if (!version) error('No version supplied.');
 
 // Run npm verison (tags & commits)
 success('Updating version...');
@@ -40,7 +41,7 @@ npm.stdout.pipe(process.stdout);
 npm.stderr.pipe(process.stderr);
 
 npm.on('close', function (code) {
-  if (code !== 0) return exit('Error: npm version. Exiting.');
+  if (code !== 0) return error('npm version. Exiting.');
 
   success('Version bumped from', oldVersion, 'to', getCurrentVersion());
   success('Pushing...');
@@ -50,7 +51,7 @@ npm.on('close', function (code) {
   release.stdout.pipe(process.stdout);
   release.stderr.pipe(process.stderr);
   release.on('close', function (code) {
-    if (code !== 0) return exit('Error: git-release. Exiting.');
+    if (code !== 0) return error('git-release. Exiting.');
 
     success('Pushed.');
     success('Publishing to npm...');
@@ -60,9 +61,10 @@ npm.on('close', function (code) {
     publish.stdout.pipe(process.stdout);
     publish.stderr.pipe(process.stderr);
     publish.on('close', function (code) {
-      if (code !== 0) return exit('Error: npm publish. Exiting.');
+      if (code !== 0) return error('npm publish. Exiting.');
 
-      success('Released to npm.');
+      success('Published to npm.');
+      success('Released new version ' + getCurrentVersion() + ' successfully.');
 
     });
   });
