@@ -3,14 +3,10 @@
 A little script to help release `npm` modules. It:
 
 - Bumps the version in `package.json`
-- Commits 'Release x.x.x.'
+- Commits 'Release v<version number>'
 - Tags
 - Pushes the commit & tag (`git push && git push --tags`)
 - Releases to npm (with `npm publish`)
-
-## Install
-
-`npm install -g npm-release`
 
 ## Usage
 
@@ -27,6 +23,10 @@ And custom commit messages:
 `npm-release major -m "#yolo"`
 
 Finger-licking good!
+
+## Install
+
+`npm install -g npm-release`
 
 ## License
 
