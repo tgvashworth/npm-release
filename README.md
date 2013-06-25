@@ -3,7 +3,7 @@
 A little script to help release `npm` modules. It:
 
 - Bumps the version in `package.json`
-- Commits 'Release v<version number>'
+- Commits 'Release vX.X.X-X'
 - Tags
 - Pushes the commit & tag (`git push && git push --tags`)
 - Releases to npm (with `npm publish`)
