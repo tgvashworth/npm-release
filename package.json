@@ -4,6 +4,7 @@
   "description": "Tiny tool for releasing npm modules.",
   "main": "index.js",
   "preferGlobal": true,
+  "repository":"phuu/npm-release",
   "scripts": {
     "test": "tap ./test"
   },
