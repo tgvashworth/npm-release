@@ -7,7 +7,7 @@ var spawn = require('child_process').spawn,
     argv = require('optimist').argv,
     colors = require('colors'),
     version = process.argv[2],
-    relasePath = path.resolve(__dirname, './git-release');
+    releasePath = path.resolve(__dirname, './git-release');
 
 var exit = function (str) {
   console.log([].slice.call(arguments).join(' ').red);
@@ -63,7 +63,7 @@ npm.on('close', function (code) {
   msg('Pushing...');
 
   // Run git-release (tag & push)
-  var release = spawn('sh', [relasePath, getCurrentVersion()]);
+  var release = spawn('sh', [releasePath, getCurrentVersion()]);
   release.stdout.pipe(process.stdout);
   release.stderr.pipe(process.stderr);
   release.on('close', function (code) {
