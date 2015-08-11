@@ -4,16 +4,21 @@
   "description": "Tiny tool for releasing npm modules.",
   "main": "index.js",
   "preferGlobal": true,
-  "repository":"phuu/npm-release",
   "scripts": {
     "test": "tap ./test"
   },
   "bin": {
     "npm-release": "./bin/npm-release"
   },
-  "repository": "",
   "author": "Tom Ashworth <tom@phuu.net>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phuu/npm-release.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phuu/npm-release/issues"
+  },
   "dependencies": {
     "colors": "~0.6.0-1",
     "optimist": "~0.6.0"
