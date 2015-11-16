@@ -43,10 +43,9 @@ var getCurrentVersion = function () {
   return getPkg().version;
 };
 
-var oldVersion = getCurrentVersion(),
+var oldVersion = getCurrentVersion() || '[no version]',
     message = argv.m || argv.message;
 
-if (!oldVersion) error('No version in package.json found.');
 if (!version) error('No version supplied.');
 
 // Run npm verison (tags & commits)
