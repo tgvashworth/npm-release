@@ -75,11 +75,18 @@ npm.on('close', function (code) {
       msg('Publish to npm cancelled, this is a private repo.');
       return done();
     }
-
-    msg('Publishing to npm...');
+      
+    var args = ['publish'];
+      
+    if (getPkg().name[0] === '@') {
+      msg('Detected ' + getPkg().name.match(/^@\w+/)[0]);
+      args.push('--access', 'public');
+    }
+      
+    msg('Publishing publicly to npm...');
 
     // Publish to npm
-    var publish = spawn('npm', ['publish']);
+    var publish = spawn('npm', args);
     publish.stdout.pipe(process.stdout);
     publish.stderr.pipe(process.stderr);
     publish.on('close', function (code) {
