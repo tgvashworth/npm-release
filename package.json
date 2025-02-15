@@ -20,7 +20,7 @@
     "url": "https://github.com/phuu/npm-release/issues"
   },
   "dependencies": {
-    "colors": "~0.6.0-1",
+    "colors": "~1.4.0",
     "optimist": "~0.6.0"
   }
 }
